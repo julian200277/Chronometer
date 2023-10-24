@@ -7,6 +7,7 @@ from Styles import Estilos_1
 import sys
 from datetime import datetime
 import os
+import platform
 
 
 class Ui_MainWindow(object):
@@ -213,6 +214,8 @@ class Interfaz(QMainWindow):
         self.tiempo_total = (self.horas * 3600) + (self.minutos * 60) + self.segundos
 
     def lcd_display(self):
+        sistema = platform.system()
+        #print("Estamos en {}".format(sistema))
         #Este código es como un bucle en el tiempo que se detiene hasta que sea llamada la funcion stop
         tiempo = datetime.now()
         self.timer.start(1000)
@@ -222,7 +225,10 @@ class Interfaz(QMainWindow):
 
         if(self.tiempo_total == 0):
             self.timer.stop()
-            os.system('shutdown /P')
+            if(sistema == "Linux"):
+                os.system('shutdown /P')
+            elif(sistema == "Windows"):
+                os.system('shutdown now')
         self.tiempo_total -= 1
 
     def formatear_tiempo(self, segundos):
@@ -237,6 +243,7 @@ class Interfaz(QMainWindow):
 
     def cancelar(self):
         self.timer.stop()
+
 
     def salir(self):
         self.timer.stop()
