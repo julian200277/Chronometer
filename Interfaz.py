@@ -226,9 +226,9 @@ class Interfaz(QMainWindow):
         if(self.tiempo_total == 0):
             self.timer.stop()
             if(sistema == "Linux"):
-                os.system('shutdown /P')
-            elif(sistema == "Windows"):
                 os.system('shutdown now')
+            elif(sistema == "Windows"):
+                os.system('shutdown /P')
         self.tiempo_total -= 1
 
     def formatear_tiempo(self, segundos):
